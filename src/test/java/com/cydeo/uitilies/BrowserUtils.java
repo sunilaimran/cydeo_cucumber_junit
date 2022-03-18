@@ -59,14 +59,13 @@ public class BrowserUtils {
 
     }
 
-    public static void waitForInvisibilityOf(WebElement webElement){
-         /*
-    Creating a utility method for ExplicitWait, so we don't have to repeat the lines
+    /*
+    This method accepts a String "expectedTitle" and Asserts if it is true
      */
+    public static void verifyTitle(String expectedTitle){
 
-        // Driver.getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
-        wait.until(ExpectedConditions.invisibilityOf(webElement));
+        Assert.assertEquals(Driver.getDriver().getTitle(), expectedTitle);
+
     }
 
 }
