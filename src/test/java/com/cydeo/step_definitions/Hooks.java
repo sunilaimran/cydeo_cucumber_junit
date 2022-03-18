@@ -6,6 +6,7 @@ In the class we will be able to pass pre- & post- conditions to
  */
 
 
+import com.cydeo.uitilies.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
@@ -32,8 +33,13 @@ public class Hooks {
 
     @After
     public void tearDownScenario(){
-        System.out.println("===closing browser using cucumber @After====");
-        System.out.println("===scenario ended/ Take screenshot if  ");
+
+        Driver.closeDriver();
+
+
+
+        //System.out.println("===closing browser using cucumber @After====");
+        //System.out.println("===scenario ended/ Take screenshot if  ");
     }
      @BeforeStep
     public void setupStep(){
