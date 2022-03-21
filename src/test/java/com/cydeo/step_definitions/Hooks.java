@@ -6,20 +6,20 @@ In the class we will be able to pass pre- & post- conditions to
  */
 
 
-import com.cydeo.uitilies.Driver;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Before;
-import io.cucumber.java.BeforeStep;
+import com.cydeo.utilities.Driver;
+import io.cucumber.java.*;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 public class Hooks {
 
-    @Before (order = 0)//import from ip.cucumber.java not from junit
+    //import from io.cucumber.java not from junit
+    @Before (order = 1)//import from ip.cucumber.java not from junit
     public void setupScenario(){
         System.out.println("====setting up browser using cucumber @Before======");
 
     }
-    @Before (value = "@login",order = -1)
+    @Before (value = "@login",order = 2)
     public void setupScenarioForLogins() {
         System.out.println("====setting up browser using cucumber @Before======");
 
@@ -32,10 +32,20 @@ public class Hooks {
     }
 
     @After
-    public void tearDownScenario(){
+    public void tearDownScenario(Scenario scenario){
+
+
+
+        //scensrio.isfailed()-->is scenario fails this method will return true boolean value
+        if (scenario.isFailed()) {
+
+           byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+
+           scenario.attach(screenshot, "image/png", scenario.getName());
+
+       }
 
         Driver.closeDriver();
-
 
 
         //System.out.println("===closing browser using cucumber @After====");
