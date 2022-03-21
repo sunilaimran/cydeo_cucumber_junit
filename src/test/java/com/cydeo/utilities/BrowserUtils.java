@@ -2,7 +2,11 @@ package com.cydeo.utilities;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class BrowserUtils {
@@ -10,11 +14,11 @@ public class BrowserUtils {
     This method will accept int (in seconds) and execute Thread.sleep
     for given duration
      */
-    public static void sleep(int second){
-        second *=1000;
+    public static void sleep(int second) {
+        second *= 1000;
         try {
             Thread.sleep(second);
-        }catch (InterruptedException e ) {
+        } catch (InterruptedException e) {
 
         }
     }
@@ -27,7 +31,7 @@ public class BrowserUtils {
         - If condition matches, will break loop.
     Arg3: expectedInTitle to be compared against actualTitle
      */
-    public static void switchWindowAndVerify(WebDriver driver, String expectedInUrl, String expectedInTitle){
+    public static void switchWindowAndVerify(WebDriver driver, String expectedInUrl, String expectedInTitle) {
 
         Set<String> allWindowsHandles = driver.getWindowHandles();
 
@@ -37,7 +41,7 @@ public class BrowserUtils {
 
             System.out.println("Current URL: " + driver.getCurrentUrl());
 
-            if (driver.getCurrentUrl().contains(expectedInUrl)){
+            if (driver.getCurrentUrl().contains(expectedInUrl)) {
                 break;
             }
         }
@@ -50,7 +54,7 @@ public class BrowserUtils {
     /*
     This method accepts a String "expectedTitle" and Asserts if it is true
      */
-    public static void verifyTitle(WebDriver driver ,String expectedTitle){
+    public static void verifyTitle(WebDriver driver, String expectedTitle) {
 
         Assert.assertEquals(driver.getTitle(), expectedTitle);
 
@@ -59,18 +63,45 @@ public class BrowserUtils {
     /*
     This method accepts a String "expectedTitle" and Asserts if it is true
      */
-    public static void verifyTitle(String expectedTitle){
+    public static void verifyTitle(String expectedTitle) {
 
         Assert.assertEquals(Driver.getDriver().getTitle(), expectedTitle);
 
     }
 
 
-    public static void verifyURLContains(String expectedInURL){
+    /**
+     * This method will accept a String as expected value and verify actual URL CONTAINS the value.
+     *
+     * @param expectedInURL
+     */
+    public static void verifyURLContains(String expectedInURL) {
         Assert.assertTrue(Driver.getDriver().getCurrentUrl().contains(expectedInURL));
     }
 
-}
+
+    /**
+     * This method will accept a dropdown as a WebElement
+     * and return all the options' text in a List of String.
+     * @param dropdownElement
+     * @return
+     */
+    public static List<String> dropdownOptions(WebElement dropdownElement) {
+
+        Select select = new Select(dropdownElement);
+
+
+        List<WebElement> actualOptionsAsWebElement = select.getOptions();
+
+        List<String> actualOptions = new ArrayList<>();
+
+        for (WebElement each : actualOptionsAsWebElement) {
+            actualOptions.add(each.getText());
+        }
+        return actualOptions;
+
+    }
+   }
 //    /*
 //      Creating a utility method for ExplicitWait, so we don't have to repeat the lines
 //       */
