@@ -1,10 +1,7 @@
-package com.cydeo.uitilies;
+package com.cydeo.utilities;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Set;
 
@@ -66,6 +63,11 @@ public class BrowserUtils {
 
         Assert.assertEquals(Driver.getDriver().getTitle(), expectedTitle);
 
+    }
+
+
+    public static void verifyURLContains(String expectedInURL){
+        Assert.assertTrue(Driver.getDriver().getCurrentUrl().contains(expectedInURL));
     }
 
 }
